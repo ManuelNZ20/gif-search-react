@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-export const AddCategory = () => {
+export const AddCategory = ({ onNewCategory }) => {
   const [inputValue, setInputValue] = useState("");
   const onInputChange = ({ target }) => {
     // console.log(target.value);
@@ -8,19 +8,21 @@ export const AddCategory = () => {
   };
 
   const onSubmit = (event) => {
-    event.preventDefault()
-    console.log(inputValue)//obteno el valor de algo
-  }
+    event.preventDefault();
+    if (inputValue.trim().length <= 1) return;
+    // setCategories( (cat) => [inputValue, ...cat] );
+    onNewCategory( inputValue.trim() )
+    setInputValue('')
+  };
 
   return (
-    <form action="" onSubmit={(event) => onSubmit(event)}>
+    <form action="" onSubmit={onSubmit}>
       <input
         type="text"
         placeholder="Buscar gifs"
         value={inputValue}
         onChange={onInputChange}
       />
-
     </form>
   );
 };
